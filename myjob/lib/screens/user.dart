@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:myjob/screens/home.dart';
+import 'package:myjob/screens/second.dart';
 import 'package:myjob/screens/user.dart';
-import 'home.dart';
 
-class second extends StatefulWidget {
-  const second({super.key});
+class user extends StatefulWidget {
+  const user({super.key});
 
   @override
-  State<second> createState() => _secondState();
+  State<user> createState() => _userState();
 }
 
-class _secondState extends State<second> {
+class _userState extends State<user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('the second page'),
+        title: const Text('the user page'),
       ),
       body: Column(
         children: [
-          SizedBox(height: 300.0),
+          SizedBox(height: 400.0),
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.deepPurple),
+                borderRadius: BorderRadius.circular(12), color: Colors.grey),
             child: Center(
               child: TextButton(
                 onPressed: () {
@@ -36,7 +36,7 @@ class _secondState extends State<second> {
                   //if (result != null) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => user()),
+                    MaterialPageRoute(builder: (context) => homepage()),
                   );
                   //} else {
                   //print('user not found');
@@ -44,7 +44,7 @@ class _secondState extends State<second> {
                   //   }
                 },
                 child: Text(
-                  'user account',
+                  'loug out',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -54,7 +54,6 @@ class _secondState extends State<second> {
               ),
             ),
           ),
-          SizedBox(height: 100.0),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:myjob/screens/register.dart';
 import 'package:myjob/screens/second.dart';
 
 class homepage extends StatefulWidget {
@@ -145,23 +146,22 @@ class _homepageState extends State<homepage> {
                         color: Colors.deepPurple),
                     child: Center(
                       child: TextButton(
-                        onPressed: () async {
-                          if (_formkey.currentState!.validate()) {
-                            var result = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: _emailcontroller.text,
-                                    password: _passwordcontroller.text);
+                        onPressed: () {
+                          // if (_formkey.currentState!.validate()) {
+                          // var result = FirebaseAuth.instance
+                          //   .signInWithEmailAndPassword(
+                          //     email: _emailcontroller.text,
+                          //   password: _passwordcontroller.text);
 
-                            if (result != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => second()),
-                              );
-                            } else {
-                              print('user not found');
-                            }
-                          }
+                          //if (result != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => second()),
+                          );
+                          //} else {
+                          //print('user not found');
+                          //}
+                          //   }
                         },
                         child: Text(
                           'Sign In',
@@ -185,8 +185,13 @@ class _homepageState extends State<homepage> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    GestureDetector(
-                      onTap: () => {},
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => register()),
+                        );
+                      },
                       // ignore: prefer_const_constructors
                       child: Text(
                         ' Register Now',
