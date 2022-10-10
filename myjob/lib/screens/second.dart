@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myjob/screens/user.dart';
 import 'home.dart';
@@ -10,6 +11,27 @@ class second extends StatefulWidget {
 }
 
 class _secondState extends State<second> {
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getcurrentuser();
+  }
+
+  void getcurrentuser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+        print(signedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

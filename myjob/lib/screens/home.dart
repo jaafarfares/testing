@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:myjob/screens/register.dart';
@@ -13,16 +13,17 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
-  final _formkey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  late String _email;
+  late String _password;
+  //TextEditingController _emailcontroller = TextEditingController();
 
-  TextEditingController _emailcontroller = TextEditingController();
-
-  TextEditingController _passwordcontroller = TextEditingController();
+  //TextEditingController _passwordcontroller = TextEditingController();
   @override
   void dispose() {
-    _emailcontroller.dispose();
+    // _emailcontroller.dispose();
 
-    _passwordcontroller.dispose();
+    //_passwordcontroller.dispose();
 
     super.dispose();
   }
@@ -103,7 +104,11 @@ class _homepageState extends State<homepage> {
                       child: ListTile(
                         leading: Icon(Icons.email),
                         title: TextField(
-                          controller: _emailcontroller,
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (value) {
+                            _email = value;
+                          },
+                          //controller: _emailcontroller,
                           decoration: InputDecoration(
                               border: InputBorder.none, hintText: 'Email'),
                         ),
@@ -127,7 +132,10 @@ class _homepageState extends State<homepage> {
                       child: ListTile(
                         leading: Icon(Icons.lock_person),
                         title: TextField(
-                          controller: _passwordcontroller,
+                          onChanged: (value) {
+                            _password = value;
+                          },
+                          //controller: _passwordcontroller,
                           obscureText: true,
                           decoration: InputDecoration(
                               border: InputBorder.none, hintText: 'Password'),
@@ -146,23 +154,6 @@ class _homepageState extends State<homepage> {
                         color: Colors.deepPurple),
                     child: Center(
                       child: TextButton(
-                        onPressed: () {
-                          // if (_formkey.currentState!.validate()) {
-                          // var result = FirebaseAuth.instance
-                          //   .signInWithEmailAndPassword(
-                          //     email: _emailcontroller.text,
-                          //   password: _passwordcontroller.text);
-
-                          //if (result != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => second()),
-                          );
-                          //} else {
-                          //print('user not found');
-                          //}
-                          //   }
-                        },
                         child: Text(
                           'Sign In',
                           style: TextStyle(
@@ -171,6 +162,18 @@ class _homepageState extends State<homepage> {
                             fontSize: 20,
                           ),
                         ),
+                        onPressed: () async {
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                                email: _email, password: _password);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => second()));
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
                       ),
                     ),
                   ),
