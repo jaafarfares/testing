@@ -17,44 +17,57 @@ class _userState extends State<user> {
       appBar: AppBar(
         title: const Text('the user page'),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 400.0),
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: Colors.grey),
-            child: Center(
-              child: TextButton(
-                onPressed: () {
-                  // if (_formkey.currentState!.validate()) {
-                  // var result = FirebaseAuth.instance
-                  //   .signInWithEmailAndPassword(
-                  //     email: _emailcontroller.text,
-                  //   password: _passwordcontroller.text);
-
-                  //if (result != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => homepage()),
-                  );
-                  //} else {
-                  //print('user not found');
-                  //}
-                  //   }
-                },
-                child: Text(
-                  'loug out',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            TextFormField(decoration: InputDecoration(labelText: 'username')),
+            SizedBox(height: 10),
+            TextFormField(decoration: InputDecoration(labelText: 'Job title')),
+            SizedBox(height: 10),
+            TextFormField(decoration: InputDecoration(labelText: 'Email')),
+            SizedBox(height: 10),
+            TextFormField(
+                decoration: InputDecoration(labelText: 'Employee / employer')),
+            SizedBox(height: 10),
+            TextFormField(
+                decoration: InputDecoration(labelText: 'phone number')),
+            SizedBox(height: 10),
+            TextFormField(decoration: InputDecoration(labelText: 'github')),
+            SizedBox(height: 10),
+            TextFormField(decoration: InputDecoration(labelText: 'Linkden')),
+            SizedBox(height: 40),
+            TextFormField(
+                decoration: InputDecoration(labelText: 'Description')),
+            ElevatedButton(onPressed: () {}, child: const Text('submit')),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => homepage()),
+                    );
+                  },
+                  child: Text(
+                    'loug out',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

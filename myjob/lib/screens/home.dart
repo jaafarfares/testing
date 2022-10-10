@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:myjob/screens/register.dart';
@@ -30,7 +30,7 @@ class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[290],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -42,7 +42,7 @@ class _homepageState extends State<homepage> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    backgroundColor: Colors.grey[500],
+                    backgroundColor: Colors.grey[400],
                   ),
                   onPressed: () {},
                   child: const Icon(
@@ -113,8 +113,8 @@ class _homepageState extends State<homepage> {
                 ),
                 const SizedBox(height: 5.0),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0, vertical: 1.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 25.0, vertical: 1.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -175,7 +175,7 @@ class _homepageState extends State<homepage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 5.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
