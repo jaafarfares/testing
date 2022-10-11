@@ -17,6 +17,9 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
+  shadow: ^1.5.0
+  drop_shadow: ^0.0.1+4
+  rflutter_alert: ^2.0.4
   
   
   firebase_auth: ^3.11.0
