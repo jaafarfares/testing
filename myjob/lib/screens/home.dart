@@ -35,9 +35,19 @@ class _secondState extends State<second> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[290],
       appBar: AppBar(
-        title: const Text('the login page'),
-      ),
+          toolbarHeight: 90,
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+          title: const Text(
+            'The Home Page',
+            style: TextStyle(
+              color: Colors.white70,
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
+          )),
       body: SingleChildScrollView(
         child: Column(
           children: [

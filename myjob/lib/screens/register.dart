@@ -6,6 +6,7 @@ import 'package:myjob/screens/login.dart';
 import 'package:myjob/screens/home.dart';
 import 'package:myjob/screens/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class register extends StatefulWidget {
   const register({super.key});
@@ -25,12 +26,13 @@ class _registerState extends State<register> {
     return Scaffold(
       backgroundColor: Colors.grey[290],
       appBar: AppBar(
+        toolbarHeight: 90,
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
         title: const Text(
           'the register page',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w800, fontSize: 25),
+              color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
         ),
       ),
       body: SingleChildScrollView(
@@ -40,10 +42,10 @@ class _registerState extends State<register> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 10),
-              // TextFormField(
+              //TextFormField(
               //   controller: _name,
-              // decoration: InputDecoration(
-              //   labelText: 'username', border: OutlineInputBorder())),
+              //  decoration: InputDecoration(
+              //    labelText: 'username', border: OutlineInputBorder())),
               SizedBox(height: 10),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
@@ -102,6 +104,20 @@ class _registerState extends State<register> {
                           MaterialPageRoute(builder: (context) => second()));
                     } catch (e) {
                       print(e);
+                      showDialog(
+                          context: context,
+                          builder: ((context) => AlertDialog(
+                                alignment: Alignment.center,
+                                backgroundColor: Colors.grey[200],
+                                title: Text(
+                                  textAlign: TextAlign.center,
+                                  "Try again !!!!",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                elevation: 40.0,
+                              )));
                     }
                   },
                   style: ElevatedButton.styleFrom(
