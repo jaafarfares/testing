@@ -1,4 +1,7 @@
-//import 'dart:js';
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -6,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:myjob/screens/register.dart';
 import 'package:myjob/screens/home.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class loginpage extends StatefulWidget {
   loginpage({super.key});
@@ -24,7 +28,8 @@ class _loginpageState extends State<loginpage> {
     super.dispose();
   }
 
-  bool _isObscure = true;
+  // Toggles the password show status
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,13 +106,17 @@ class _loginpageState extends State<loginpage> {
                       child: ListTile(
                         leading: Icon(Icons.email),
                         title: TextField(
+                          maxLength: 24,
+
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (value) {
                             _email = value;
                           },
                           //controller: _emailcontroller,
                           decoration: InputDecoration(
-                              border: InputBorder.none, hintText: 'Email'),
+                              counterText: '',
+                              border: InputBorder.none,
+                              hintText: 'Email'),
                         ),
                       ),
                     ),
@@ -115,20 +124,78 @@ class _loginpageState extends State<loginpage> {
                 ),
                 const SizedBox(height: 5.0),
                 Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 25.0, vertical: 1.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 20.0,
+                          top: 10,
+                        ),
+                        child: ListTile(
+                          leading: Icon(Icons.lock_person),
+                          title: PasswordField(
+                            errorMaxLines: null,
+                            maxLength: 20,
+                            onChanged: (value) {
+                              _password = value;
+                            },
+
+                            border: null,
+                            onSubmit: null,
+                            inputDecoration: null,
+                            hasFloatingPlaceholder: false,
+                            passwordConstraint: r'[a-zA-Z0-9]{6}',
+                            // color: Colors.grey,
+                            //passwordConstraint: r'.*[@$#.*].*',
+                            //inputDecoration: PasswordDecoration(),
+                            //hintText: 'Password',
+                            //border: PasswordBorder(
+                            //border: OutlineInputBorder(
+                            //borderSide: BorderSide(
+                            //:color: Colors.blue.shade100,
+                            //),
+                            //borderRadius: BorderRadius.circular(12),
+                            //),
+                            // focusedBorder: OutlineInputBorder(
+                            // borderSide: BorderSide(
+                            // color: Colors.blue.shade100,
+                            // ),
+                            // borderRadius: BorderRadius.circular(12),
+                            //),
+                            // focusedErrorBorder: OutlineInputBorder(
+                            // borderRadius: BorderRadius.circular(12),
+                            //borderSide: BorderSide(
+                            //  width: 2, color: Colors.red.shade200),
+                            //),
+                            // ),
+                            errorMessage:
+                                'Password must be longer then 6 charachters',
+                          ),
+                        ),
+                      ),
+                    )),
+                /* Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 1.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
                         border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
+                        borderRadius: BorderRadius.circular(12)), */
+/*                     child: Padding(
                       padding: EdgeInsets.only(
                         left: 20.0,
                       ),
                       child: ListTile(
                         leading: Icon(Icons.lock_person),
                         title: TextField(
+                          maxLength: 15,
+
                           obscureText: true,
                           onChanged: (value) {
                             _password = value;
@@ -152,7 +219,7 @@ class _loginpageState extends State<loginpage> {
                       ),
                     ),
                   ),
-                ),
+                ), */
                 const SizedBox(height: 15.0),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -179,10 +246,20 @@ class _loginpageState extends State<loginpage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => second()));
+
                             AlertDialog alert = AlertDialog(
                               alignment: Alignment.center,
-                              title: Text("Sucsess!"),
-                              content: Text("successfully loged in"),
+                              contentTextStyle: TextStyle(),
+                              title: Text(
+                                "Sucsess!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.amber),
+                              ),
+                              //content: Text("successfully loged in",
+                              //  textAlign: TextAlign.center),
                             );
 
                             // show the dialog
