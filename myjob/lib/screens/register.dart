@@ -1,10 +1,11 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjob/screens/login.dart';
 import 'package:myjob/screens/home.dart';
-import 'package:myjob/screens/user.dart';
+import 'package:myjob/screens/usersettings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -101,7 +102,7 @@ class _registerState extends State<register> {
                           await _auth.createUserWithEmailAndPassword(
                               email: _email, password: _password);
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => second()));
+                          MaterialPageRoute(builder: (context) => loginpage()));
                     } catch (e) {
                       print(e);
                       showDialog(

@@ -4,16 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myjob/screens/user.dart';
+import 'package:myjob/screens/usersettings.dart';
 import 'login.dart';
 
-class second extends StatefulWidget {
-  const second({super.key});
+class home extends StatefulWidget {
+  const home({super.key});
 
   @override
-  State<second> createState() => _secondState();
+  State<home> createState() => _homeState();
 }
 
-class _secondState extends State<second> {
+class _homeState extends State<home> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
 
@@ -40,17 +41,18 @@ class _secondState extends State<second> {
     return Scaffold(
       backgroundColor: Colors.grey[290],
       appBar: AppBar(
-          toolbarHeight: 90,
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple,
-          title: const Text(
-            ' The Home Page',
-            style: TextStyle(
-              color: Colors.white70,
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-            ),
-          )),
+        toolbarHeight: 90,
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+        title: const Text(
+          ' The Home Page',
+          style: TextStyle(
+            color: Colors.white70,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

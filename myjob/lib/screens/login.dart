@@ -8,6 +8,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:myjob/screens/register.dart';
 import 'package:myjob/screens/home.dart';
+import 'package:myjob/screens/user.dart';
+import 'package:myjob/screens/usersettings.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:passwordfield/passwordfield.dart';
 
@@ -102,10 +104,13 @@ class _loginpageState extends State<loginpage> {
                     child: Padding(
                       padding: EdgeInsets.only(
                         left: 20.0,
+                        top: 15,
+                        bottom: 15,
                       ),
                       child: ListTile(
                         leading: Icon(Icons.email),
                         title: TextField(
+                          
                           maxLength: 24,
 
                           keyboardType: TextInputType.emailAddress,
@@ -245,7 +250,7 @@ class _loginpageState extends State<loginpage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => second()));
+                                    builder: (context) => home()));
 
                             AlertDialog alert = AlertDialog(
                               alignment: Alignment.center,

@@ -1,407 +1,371 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:myjob/screens/login.dart';
-import 'package:myjob/screens/home.dart';
-import 'package:myjob/screens/user.dart';
-import 'package:shadow/shadow.dart';
-import 'package:drop_shadow/drop_shadow.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/src/material/checkbox.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:myjob/screens/usersettings.dart';
+import 'login.dart';
+import 'package:readmore/readmore.dart';
 
 class user extends StatefulWidget {
   const user({super.key});
 
   @override
-  State<user> createState() => _userState();
+  State<user> createState() => _usersettings();
 }
 
-class _userState extends State<user> {
-  final _firestore = FirebaseFirestore.instance;
-
-  final _auth = FirebaseAuth.instance;
-  late String? _username;
-  late String? _profession;
-  late String? _email;
-  late String? _title;
-  late int? _number;
-  late String? _github;
-  late String? _linkden;
-  late String? _description;
-
-  bool value = false;
-  bool valuee = false;
-  //late String employer;
-
+class _usersettings extends State<user> {
+  String content =
+      'Engineering techniques are used to inform[clarification needed] the software development process[1][4] which involves the definition, implementation, assessment, measurement, management, change, and improvement of the software life cycle process itself. It heavily uses software configuration management[1][4] which is about systematically controlling changes to the configuration, and maintaining the integrity and traceability of the configuration and code throughout the system life cycle. Modern processes use software versioning';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[290],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        toolbarHeight: 90,
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-        title: const Text(
-          'User profile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
+        toolbarHeight: 60,
+        iconTheme: IconThemeData(
+          size: 32,
+          color: Colors.black, //change your color here
         ),
+        //leading: Icon(
+        //Icons.arrow_back,
+        //color: Colors.black,
+        //size: 33,
+        //),
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(
+              size: 35,
+              Icons.logout,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              //_auth.signOut();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => usersettins()),
+              );
+            },
+          )
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              Center(
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 95,
-                      backgroundColor: Colors.yellow,
-                      backgroundImage: AssetImage("images/home_img.png"),
-                    ),
-                    Positioned(
-                      bottom: 20.0,
-                      right: 20.0,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.camera_alt,
-                          color: Color.fromARGB(255, 234, 245, 243),
-                          size: 30,
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Container(
+            padding: EdgeInsets.all(15),
+            child: ListView(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        CircleAvatar(
+                          maxRadius: 70,
+                          backgroundImage: AssetImage('images/myimg.png'),
                         ),
-                      ),
+                        Positioned(right: 18, child: Icon(Icons.verified_user))
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          'Jaafar Fares',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 36,
+                              fontFamily: 'ComingSoon'),
+                        ),
+                        Text(
+                          'Employer',
+                          softWrap: false,
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 27,
+                            color: Colors.deepPurple,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
-              ),
-              SizedBox(height: 30),
-              Row(children: [
-                Expanded(
-                  child: ListTile(
-                    onTap: () {
-                      setState(() {
-                        this.value = !value;
-                        if (value != null) {
-                          _title == 'Employee';
-                          print(_title);
-                        } else {
-                          _title == null;
-                          print(_title);
-                        }
-                        value == _title;
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.grey, width: 1.5),
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    title: Text(
-                      "Employee",
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: <Widget>[
+                        Icon(Icons.work, color: Colors.deepPurple),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Software Engenier',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40,
+                              color: Colors.deepPurple),
+                        )
+                      ],
                     ),
-                    trailing: Checkbox(
-                      //tristate: true,
-
-                      value: value,
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                    ),
-/*                     decoration: InputDecoration(
-                        counterText: '',
-                        labelText: 'Employer',
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide:
-                                BorderSide(color: Colors.purple, width: 2))), */
-                  ),
+                  ],
                 ),
                 SizedBox(
-                  width: 20,
+                  height: 25,
                 ),
-                Expanded(
-                  child: ListTile(
-                    onTap: () {
-                      setState(() {
-                        this.valuee = !valuee;
-                        this.value = value;
-                        if (value != null) {
-                          _title == 'Employer';
-                          print(_title);
-                        } else {
-                          _title == null;
-                        }
-                        value == _title;
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.grey, width: 1.5),
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    title: Text(
-                      "Employer",
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                Builder(builder: (context) {
+                  return ReadMoreText(
+                    content,
+                    trimLines: 3,
+                    textAlign: TextAlign.justify,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: " Show More ",
+                    trimExpandedText: " Show Less ",
+                    lessStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
                     ),
-                    trailing: Checkbox(
-                      tristate: true,
-                      value: valuee,
-                      onChanged: (valuee) {
-                        setState(() {
-                          this.valuee = valuee!;
-                        });
-                      },
+                    moreStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
                     ),
-                  ),
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 2,
+                    ),
+                  );
+                }),
+                SizedBox(
+                  height: 25,
                 ),
-              ]),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _username = value;
-                  },
-                  style: TextStyle(fontSize: 20),
-/*                   validator: (value) {
-                    if (value == null || value.length < 3) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  }, */
-                  maxLength: 15,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      //errorText: '',
-                      labelText: 'username',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _profession = value.toString();
-                  },
-                  style: TextStyle(fontSize: 20),
-                  maxLength: 22,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'Profession',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _email = value.toString();
-                  },
-                  style: TextStyle(fontSize: 20),
-                  maxLength: 25,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'Email',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-
-/*               ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  title: Row(
-                    children: <Widget>[
-                      Expanded(child: Text('employee')),
-                      Checkbox(tristate: true, value: null, onChanged: null),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                              counterText: '',
-                              //labelText: 'Employee',
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  borderSide: BorderSide(
-                                      color: Colors.purple, width: 2))),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.deepPurple, width: 3),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              children: [
+                                Icon(
+                                  Icons.phone,
+                                  color: Colors.grey[600],
+                                ),
+                                Text(
+                                  'Number',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: [
+                                SelectableText(
+                                  '58777000',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.deepPurple,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                  trailing: IconButton(
-                    icon: new Icon(Icons.chevron_right),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  )), */
-              SizedBox(height: 10),
-/*               TextFormField(
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'Employee / employer',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))), */
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _number = int.parse(value);
-                  },
-                  style: TextStyle(fontSize: 20),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    ),
+                    SizedBox(width: 23),
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.deepPurple, width: 3),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              children: [
+                                Icon(
+                                  Icons.email,
+                                  color: Colors.grey[600],
+                                ),
+                                Text(
+                                  'Email',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              //decoration: BoxDecoration(
+                              //color: Colors.grey[200],
+                              //borderRadius: BorderRadius.circular(12)),
+                              child: Column(
+                                // ignore: prefer_const_literals_to_create_immutables
+                                children: [
+                                  SelectableText(
+                                    'jaafarfares@gmail.com',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.deepPurple),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
-                  maxLength: 8,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'phone number',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _github = value.toString();
-                  },
-                  style: TextStyle(fontSize: 20),
-                  maxLength: 15,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'github',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _linkden = value.toString();
-                  },
-                  style: TextStyle(fontSize: 20),
-                  maxLength: 15,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      labelText: 'Linkden',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              SizedBox(height: 10),
-              TextFormField(
-                  onChanged: (value) {
-                    _description = value.toString();
-                  },
-                  style: TextStyle(fontSize: 20),
-                  maxLength: 300,
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                      counterText: '',
-                      alignLabelWithHint: true,
-                      labelText: 'Description',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 2)))),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      //shape: const CircleBorder(),
-                      backgroundColor: Colors.deepPurple,
-                    ),
-                    onPressed: () {
-                      _firestore.collection('users').add({
-                        'user name': _username,
-                        'number': _number,
-                        'linkden': _linkden,
-                        'description': _description,
-                        'githuub': _github,
-                        'email': _email,
-                        'title': _title,
-                        'profession': _profession,
-                      });
-                    },
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                    )),
-              ),
-              SizedBox(height: 70),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.white),
-                  child: TextButton(
-                    onPressed: () {
-                      _auth.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => loginpage()),
-                      );
-                    },
-                    child: InkWell(
-                      child: Icon(
-                        size: 45,
-                        Icons.logout,
-                        color: Colors.black,
-                      ),
-                      //'loug out',
-                      //style: TextStyle(
-                      //color: Colors.white,
-                      //fontWeight: FontWeight.bold,
-                      //fontSize: 15,
-                      //),
-                    ),
-                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.deepPurple, width: 3),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          bottom: 0,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              children: [
+                                Image(
+                                  image: AssetImage('images/git.png'),
+                                  width: 50,
+                                  height: 50,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: [
+                                SelectableText(
+                                  'jaafarfares',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.deepPurple,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 23),
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.deepPurple, width: 3),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 0,
+                          right: 10,
+                          top: 0,
+                          bottom: 0,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              children: [
+                                Image(
+                                  image: AssetImage('images/link.png'),
+                                  width: 50,
+                                  height: 50,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              //decoration: BoxDecoration(
+                              //color: Colors.grey[200],
+                              //borderRadius: BorderRadius.circular(12)),
+                              child: Column(
+                                children: [
+                                  SelectableText(
+                                    'fares jaafar',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.deepPurple),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
